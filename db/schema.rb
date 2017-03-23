@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321192208) do
+ActiveRecord::Schema.define(version: 20170321195226) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "text"
@@ -66,10 +66,13 @@ ActiveRecord::Schema.define(version: 20170321192208) do
     t.integer  "guests"
     t.integer  "beds"
     t.float    "price"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "title"
     t.integer  "user_id"
-    t.boolean  "available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "available",  default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
@@ -77,9 +80,13 @@ ActiveRecord::Schema.define(version: 20170321192208) do
     t.string   "name"
     t.string   "email"
     t.string   "desc"
-    t.string   "password_digest", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "password_digest",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
 end

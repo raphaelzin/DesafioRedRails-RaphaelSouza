@@ -1,2 +1,22 @@
-<h1>Rooms#home</h1>
-<p>Find me in app/views/rooms/home.html.erb</p>
+<div class="col-md-6 col-md-offset-3" id="query">
+
+
+<h2>Search for the right room for you</h2>
+<%= form_tag rooms_index_path, :method => 'get', class: "form-inline inline-btn" do%>
+    <label>Check In </label>
+    <%= date_field :check_in, params[:check_in], :value => Time.now.strftime("%Y-%m-%d") %> 
+    <label>Check Out</label>
+    <%= date_field :check_out, params[:check_out], :value => Time.now.strftime("%Y-%m-%d") %>
+    <%= submit_tag "Search Room", class: "form-control btn btn-primary", 'data-disable-with' => "Hold your horses.." %>
+<% end %>
+
+
+
+
+
+<div style="color:red;">
+	<h1>=></h1>
+	Red hash Rocket
+</div>
+
+</div>

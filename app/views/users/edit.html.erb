@@ -1,0 +1,29 @@
+
+
+
+<div class="form col-md-4 col-md-offset-4">
+	<h2>Editting</h2><br>
+	<%= form_for (current_user) do |f| %>
+
+	<%= f.label :name%>
+	<%= f.text_field :name, required: true, class: "form-control"%><br>
+
+	<%= f.label :email %>
+	<%= f.text_field :email, required: true, class: "form-control" %><br>
+
+	<%= f.label "Description"%>
+	<%= f.text_area :desc, class: "form-control" %><br>
+
+	<%= f.label :password %>
+	<%= f.password_field :password, required: true, class: "form-control" %><br>
+<!-- 
+	<%= f.label "Confirm Password" %>
+	<%= f.password_field :password_confirmation, class: "form-control" %><br>
+ -->
+	<%= f.label :picture %>
+	<%= f.file_field :picture %><br>
+
+	<%= f.submit "Sign me in!", class: "btn btn-primary" %>
+
+	<% end %>
+</div>

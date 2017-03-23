@@ -1,0 +1,12 @@
+
+<%= image_tag current_user.picture.url, class: "avatar" %>
+<br>
+welcome <%= current_user.name %><br>
+<%= link_to "Edit account", users_edit_path %>
+<br>
+<%= link_to "Offer room", rooms_new_path %><br><br>
+You are offering these to rent<br>
+<%= render 'users/offers' %>
+
+Requests:<br>
+<%= render 'users/requests' %>

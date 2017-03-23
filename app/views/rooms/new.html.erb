@@ -1,2 +1,31 @@
-<h1>Rooms#new</h1>
-<p>Find me in app/views/rooms/new.html.erb</p>
+
+<div class="col-md-4 col-md-offset-4">
+	<h2>Offer a room</h2>
+
+	<%= form_for ([current_user, @room]), :html => { :multipart => true } do |f|%>
+		<%= f.label :title%>
+		<%= f.text_field :title, required: true, placeholder: "Room title", class: "form-control"%><br>
+
+		<%= f.label "Description" %>
+		<%= f.text_area :desc, required: true, placeholder: "Describe the room", class: "form-control"%><br>
+
+		<%= f.label :address%>
+		<%= f.text_field :address, required: true, placeholder: "e.g: 450, 19th street, Courtenay, Canada", class: "form-control"%><br>
+
+		<%= f.label :guests%>
+		<%= f.number_field :guests, step: 1, required: true, placeholder: "How many guests", class: "form-control"%><br>
+
+		<%= f.label :beds%>
+		<%= f.number_field :beds, step: 1, required: true, placeholder: "How many beds there are in the room", class: "form-control"%><br>
+
+		<%= f.label :price %>
+		<%= f.number_field :price, required: true, placeholder: "e.g: $32", class: "form-control"%><br>
+
+		<%= f.label "Pick the photos" %>
+		<%= file_field_tag :pics, multiple: true %><br>
+
+		<% f.hidden_field :user_id, value: current_user.id %>
+
+		<%= f.submit "Offer!", class: "btn btn-primary" %>
+	<% end %>
+</div>

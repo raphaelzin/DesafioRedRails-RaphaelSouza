@@ -1,0 +1,9 @@
+<% current_user.requests.each do |request| %>
+	<div class="request">
+		From: <%= request.user.name %><br>
+		Room: <%= link_to request.room.title, room_path(request.room) %><br>
+		Check-in: <%= request.in.strftime("%B, %-d - %Y ") %><br>
+		Check-out: <%= request.out.strftime("%B, %-d - %Y ") %><br>
+		Price: <%= number_to_currency(request.price) %>
+	</div>
+<% end %>

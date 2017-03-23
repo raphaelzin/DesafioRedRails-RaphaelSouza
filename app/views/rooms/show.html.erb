@@ -1,2 +1,76 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
+<div id="room-content">
+<h2><%= @room.title %></h2>
+<h4><%= @room.address %></h4>
+<p>
+	<%= @room.desc %>
+</p>
+
+
+
+
+<br>
+<div class="feature">
+	<img src="https://maxcdn.icons8.com/iOS7/PNG/50/Business/conference_call-50.png" title="Conference Call" width="50">
+	Guests: <%= @room.guests %>
+</div>
+<div class="feature">
+	<img src="https://maxcdn.icons8.com/iOS7/PNG/50/Household/bed-50.png" title="Bed" width="50">
+	Beds: <%= @room.beds %>
+</div>
+<div class="feature">
+<img src="https://maxcdn.icons8.com/iOS7/PNG/50/Ecommerce/price_tag_usd-50.png" title="Price Tag USD" width="50">
+	Price: <%= number_to_currency(@room.price) %> per night 
+	<% if session[:nights].present? %>(<%= number_to_currency(@room.price*session[:nights]) %> total)<% end %>
+</div>
+<br><br><br>
+
+<h3>Owner</h3>
+
+<%= image_tag @room.user.picture.url, class: "sm-avatar" %>
+<strong><%= @room.user.name %></strong>
+
+<br><br><br>
+
+<% if current_user.id != @room.user_id %>
+
+	<%= form_tag rooms_request_room_path, :method => 'get', class: "form-inline inline-btn" do %>
+	    <label>Check In </label>
+	    <%= date_field :check_in, params[:check_in], :value => session[:in].to_time.strftime("%Y-%m-%d") %> 
+	    <label>Check Out</label>
+	    <%= date_field :check_out, params[:check_out], :value => session[:out].to_time.strftime("%Y-%m-%d") %>
+
+	    <%= hidden_field_tag "room_id", @room.id %>
+	    <%= hidden_field_tag "user_id", current_user.id %>
+
+	    <%= submit_tag "Request Room", class: "form-control btn btn-primary", 'data-disable-with' => "Please wait.." %>
+	<% end %>
+
+<% end %>
+
+
+</div>
+
+<div id="map"></div>
+
+
+<script>
+
+	window.onload = function() {
+		  loadMap();
+	};
+
+
+	function loadMap() {
+		var mapProp = {
+		    center: new google.maps.LatLng(<%= @room.latitude %>,<%= @room.longitude %>),
+		    zoom:15
+		};
+		var map = new google.maps.Map(document.getElementById("map"),mapProp);
+
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(<%= @room.latitude %>,<%= @room.longitude %>),
+		});
+		marker.setMap(map);
+	}
+	
+</script>

@@ -1,0 +1,44 @@
+<div id="toolbar">
+<h1 style="display:inline">Ruby nb</h1>
+
+<% if not current_user.present? %>
+	<div class="pull-right" style="display:inline-block">
+		<button type="button" class="btn-sm btn-primary " data-toggle="modal" data-target="#LoginModal">Login</button>
+		<button type="button" class="btn-sm btn-primary " data-toggle="modal" data-target="#AddModal">Sign in</button><br><br>
+	</div>
+
+	<div id="LoginModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<h4 class="modal-title">Login</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <div class="modal-body">
+	        	<%= render "users/login" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="AddModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<h4 class="modal-title">Sign in</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <div class="modal-body">
+	        	<%= render "users/new" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<% else %>
+<div class="pull-right" style="display:inline-block">
+	<%= link_to "Home", users_home_path, class: "btn-sm btn-primary" %>
+	<%= link_to t(:sign_out), sign_out_path, method: :delete, class: "btn-sm btn-danger" %>
+</div>
+<% end %>
+</div>
