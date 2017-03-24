@@ -14,6 +14,24 @@
  *= require_self
  */
 
+#container
+{
+	padding: 30px;
+}
+
+.comment
+{
+	border-radius: 6px;
+	border-color: #e74c3c;
+	padding: 5px;
+}
+
+#comment_area
+{
+	padding-bottom: 40px;
+	margin-bottom: 40px;
+}
+
 #query
 {
 	text-align: center;
@@ -35,6 +53,12 @@
 .request
 {
 	padding: 15px;
+}
+
+.thumb
+{
+	height: 70px;
+	width: auto;
 }
 
 #toolbar
@@ -95,4 +119,40 @@
 
 	box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+}
+
+.offer-table
+{
+	font-size: 18px;
+}
+
+
+
+/*Carousel stuff*/
+.carousel-inner img {
+    height: 300px;
+
+    margin: auto;
+}
+
+.carousel
+{
+	height: 300px;
+}
+
+.carousel-image
+{
+	max-width:100%;
+	height:300px;
+}
+
+
+.carousel-caption h3 {
+    color: #fff !important;
+}
+
+@media (max-width: 600px) {
+    .carousel-caption {
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+    }
 }

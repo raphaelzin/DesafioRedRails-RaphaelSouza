@@ -1,9 +1,12 @@
 class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
+    @comment = Comment.new
   end
 
   def edit
+    @room = Room.find(params[:id])
+    @pic = Picture.new
   end
 
   def new
@@ -15,13 +18,6 @@ class RoomsController < ApplicationController
     @room.user_id = params[:user_id]
     if @room.save!
       flash[:success] = "Room listed!"
-
-      # params[:pics].each do |picture|      
-
-      #   @room.pictures.create(:picture => picture)
-      #   # Don't forget to mention :avatar(field name)
-
-      # end
 
       redirect_to users_home_path
     else
@@ -53,10 +49,16 @@ class RoomsController < ApplicationController
     if (params[:check_in].present? and params[:check_in][0] != "") && (params[:check_out].present? and params[:check_out][0] != "")
       @start_date = params[:check_in][0].to_date.beginning_of_day
       @end_date = params[:check_out][0].to_date.end_of_day
+
+      # Atribuição paralela para o caso de datas trocadas 
+      if @start_date > @end_date
+        @start_date,@end_date = @end_date,@start_date
+      end
+
       session[:in] = @start_date
       session[:out] = @end_date
 
-      session[:nights] = (((@end_date - @start_date).to_i)/1.day)
+      session[:nights] = (((@end_date - @start_date).to_i)/1.day).abs
     end
 
     params[:check_in] = nil

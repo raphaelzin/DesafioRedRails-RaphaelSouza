@@ -21,11 +21,6 @@
 		<%= f.label :price %>
 		<%= f.number_field :price, required: true, placeholder: "e.g: $32", class: "form-control"%><br>
 
-		<%= f.label "Pick the photos" %>
-		<%= file_field_tag :pics, multiple: true %><br>
-
-		<% f.hidden_field :user_id, value: current_user.id %>
-
 		<%= f.submit "Offer!", class: "btn btn-primary" %>
 	<% end %>
 </div>

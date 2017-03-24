@@ -4,6 +4,8 @@
 		Room: <%= link_to request.room.title, room_path(request.room) %><br>
 		Check-in: <%= request.in.strftime("%B, %-d - %Y ") %><br>
 		Check-out: <%= request.out.strftime("%B, %-d - %Y ") %><br>
-		Price: <%= number_to_currency(request.price) %>
+		Price: <%= number_to_currency(request.price) %><br>
+		<%= link_to "Accept", users_answer_request_path(request_id: request.id, answer: true) %> / 
+		<%= link_to "Deny", users_answer_request_path(request_id: request.id, answer: false) %> 
 	</div>
 <% end %>

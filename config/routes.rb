@@ -2,15 +2,7 @@ Rails.application.routes.draw do
   
   root "rooms#home"
 
-  get 'rooms/show'
-
-  get 'rooms/edit'
-
   get 'rooms/new'
-
-  get 'rooms/index'
-
-  get 'rooms/home'
 
   get 'users/history'
 
@@ -27,16 +19,21 @@ Rails.application.routes.draw do
   delete 'sign_out' => 'sessions#destroy'
 
   get "rooms/request_room"
-
- resources :sessions
   
-  resources :rooms
+  get 'pictures/destroy'
+  get 'users/answer_request'
 
-  resources :users do
-    resources :rooms do
-      post :request_room, on: :member
-    end
+  resources :sessions
+  resources :rooms, only: [:index, :show] do
+    resources :comments, only: [:create,:destroy]
   end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :users do
+    post :answer_request, on: :member
+
+    resources :rooms do
+      post :request_room, on: :member
+      resources :pictures, only: [:create,:destroy]
+    end
+  end
 end

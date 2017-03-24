@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def home
+    @user = current_user
   end
 
   def history
@@ -13,6 +14,30 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+  end
+
+  def answer_request
+    @request = Request.find(params[:request_id])
+    @room = @request.room
+    @user = @request.user
+
+    if params[:answer]
+      @history = RentHistory.new
+      
+      @history.room = @room 
+      @history.user = @user
+      @history.in = @request.in
+      @history.out = @request.out
+
+      @user.rent_histories << @history
+      flash[:success] = "Your room has been rented to #{@user.name}"
+    else
+      flash[:success] = "Request denied"
+    end
+    
+    @request.destroy
+    redirect_to users_home_path
   end
 
   def update

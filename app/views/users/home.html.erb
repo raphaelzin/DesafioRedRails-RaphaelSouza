@@ -1,12 +1,17 @@
+<div id="container">
+	<div class="row">
+		<div class="col-md-3">
+			<%= image_tag current_user.picture.url, class: "avatar" %>
+			<h3>welcome <%= current_user.name %></h3>
+			<%= link_to "Edit account", users_edit_path %><br>
+			<%= link_to "Offer room", rooms_new_path %>
+		</div>
+		<div class="col-md-6">
+			<%= render 'users/offers' %>
+			<br>
+			<h2>Requests:</h2>
+			<%= render 'users/requests' %>
+		</div>
+	</div>
+</div>
 
-<%= image_tag current_user.picture.url, class: "avatar" %>
-<br>
-welcome <%= current_user.name %><br>
-<%= link_to "Edit account", users_edit_path %>
-<br>
-<%= link_to "Offer room", rooms_new_path %><br><br>
-You are offering these to rent<br>
-<%= render 'users/offers' %>
-
-Requests:<br>
-<%= render 'users/requests' %>

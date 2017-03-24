@@ -1,4 +1,3 @@
-
 # User.destroy_all
 # Room.destroy.all
 
@@ -16,8 +15,8 @@ User.create!(name:  "Raphael Souza",
 				password:              password)
 end
 
-users = User.order(:created_at).take(8)
-10.times do |m|
+users = User.order(:created_at).take(12)
+3.times do |m|
 	users.each {|user| user.rooms.create!(
 						title: Faker::Book.title,
 						address: Faker::Address.street_address,

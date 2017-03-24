@@ -1,6 +1,6 @@
 
-
-<% Room.all.each do |r|  %>
+<!-- Não deve mostrar os próprios anûncios -->
+<% Room.where.not(user_id: current_user.id).each do |r|  %>
 
 	<%= link_to room_path(r)  do %>
 	

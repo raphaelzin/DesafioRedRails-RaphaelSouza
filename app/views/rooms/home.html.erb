@@ -2,7 +2,7 @@
 
 
 <h2>Search for the right room for you</h2>
-<%= form_tag rooms_index_path, :method => 'get', class: "form-inline inline-btn" do%>
+<%= form_tag rooms_path, :method => 'get', class: "form-inline inline-btn" do%>
     <label>Check In </label>
     <%= date_field :check_in, params[:check_in], :value => Time.now.strftime("%Y-%m-%d") %> 
     <label>Check Out</label>

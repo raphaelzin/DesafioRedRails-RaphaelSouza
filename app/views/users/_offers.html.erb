@@ -1,3 +1,13 @@
-<% current_user.rooms.each do |room| %>
-	<%= room.title %> ( <%= pluralize(room.requests.count,"request") %>)<br>
+<h2>Rooms offered:</h2>
+<% @user.rooms.each do |room| %>
+
+	<div class="offer-table">
+		<%= link_to room.title, room_path(room) %> 
+
+		( <%= pluralize(room.requests.count,"request") %>) 
+		<% if current_user == @user %>
+			<%= link_to "edit", edit_user_room_path(current_user, room) %>
+		<% end %>
+		<br>
+	</div>
 <% end %>

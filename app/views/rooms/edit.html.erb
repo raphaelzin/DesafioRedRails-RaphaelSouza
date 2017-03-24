@@ -1,2 +1,42 @@
-<h1>Rooms#edit</h1>
-<p>Find me in app/views/rooms/edit.html.erb</p>
+
+<div class="col-md-4 col-md-offset-4">
+	<h2>Edit the room</h2>
+
+	<%= form_for ([current_user, @room]) do |f|%>
+		<%= f.label :title%>
+		<%= f.text_field :title, required: true, placeholder: "Room title", class: "form-control"%><br>
+
+		<%= f.label "Description" %>
+		<%= f.text_area :desc, required: true, placeholder: "Describe the room", class: "form-control"%><br>
+
+		<%= f.label :address%>
+		<%= f.text_field :address, required: true, placeholder: "e.g: 450, 19th street, Courtenay, Canada", class: "form-control"%><br>
+
+		<%= f.label :guests%>
+		<%= f.number_field :guests, step: 1, required: true, placeholder: "How many guests", class: "form-control"%><br>
+
+		<%= f.label :beds%>
+		<%= f.number_field :beds, step: 1, required: true, placeholder: "How many beds there are in the room", class: "form-control"%><br>
+
+		<%= f.label :price %>
+		<%= f.number_field :price, required: true, placeholder: "e.g: $32", class: "form-control"%><br>
+
+		<%= f.submit "Save edits", class: "form-control btn btn-primary" %>
+	<% end %>
+<hr>
+				<div class="row">
+					<% @room.pictures.each do |p| %>
+					<div class="col-md-2 text-center">
+						<%= image_tag p.picture.url, class: "thumb"%><br>
+						<%= link_to 'Delete', pictures_destroy_path(p,:id => p.id,:room_id => p.room),  data: {confirm: 'Are you sure you want to delete this picture?'},class: "btn btn-danger"%>
+					</div>
+					<%end%>	
+				</div>
+
+	<%= form_for ([current_user, @room, @pic]) do |f| %>
+		<%= f.label "Pick Photo" %>
+		<%= f.file_field :picture %><br>
+		<%= f.submit "Add picture", class: "form-control btn btn-info" %>
+	<% end %>
+
+</div>

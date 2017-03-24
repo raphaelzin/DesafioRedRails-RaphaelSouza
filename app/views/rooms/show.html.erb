@@ -1,13 +1,13 @@
+<div>
+	<%= render 'rooms/carousel' %>
+</div>
+
 <div id="room-content">
 <h2><%= @room.title %></h2>
 <h4><%= @room.address %></h4>
 <p>
 	<%= @room.desc %>
 </p>
-
-
-
-
 <br>
 <div class="feature">
 	<img src="https://maxcdn.icons8.com/iOS7/PNG/50/Business/conference_call-50.png" title="Conference Call" width="50">
@@ -23,21 +23,24 @@
 	<% if session[:nights].present? %>(<%= number_to_currency(@room.price*session[:nights]) %> total)<% end %>
 </div>
 <br><br><br>
-
 <h3>Owner</h3>
-
 <%= image_tag @room.user.picture.url, class: "sm-avatar" %>
-<strong><%= @room.user.name %></strong>
+<strong><%= link_to @room.user.name, user_path(@room.user) %></strong>
 
 <br><br><br>
 
+<!-- Opção para o usuário requisitar o quarto -->
 <% if current_user.id != @room.user_id %>
 
 	<%= form_tag rooms_request_room_path, :method => 'get', class: "form-inline inline-btn" do %>
+		<!-- Caso o check-in ou check-out não estejam na sessão, é usado a data atual -->
 	    <label>Check In </label>
-	    <%= date_field :check_in, params[:check_in], :value => session[:in].to_time.strftime("%Y-%m-%d") %> 
+	    <%= date_field :check_in, params[:check_in], 
+	    		:value => (session[:in].present? ? session[:in] : Time.now).to_time.strftime("%Y-%m-%d") %>
+
 	    <label>Check Out</label>
-	    <%= date_field :check_out, params[:check_out], :value => session[:out].to_time.strftime("%Y-%m-%d") %>
+	    <%= date_field :check_out, params[:check_out], 
+	    		:value => (session[:out].present? ? session[:out] : Time.now).to_time.strftime("%Y-%m-%d") %>
 
 	    <%= hidden_field_tag "room_id", @room.id %>
 	    <%= hidden_field_tag "user_id", current_user.id %>
@@ -48,6 +51,10 @@
 <% end %>
 
 
+<!-- Comentários de quem já se hospedou neste quarto -->
+<%= render 'rooms/comments' %>
+
+<br>
 </div>
 
 <div id="map"></div>
