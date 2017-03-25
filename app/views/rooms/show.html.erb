@@ -4,8 +4,9 @@
 
 <div id="room-content">
 <h2><%= @room.title %></h2>
-<h4><%= @room.address %></h4>
+<h4>Address: <%= @room.address %></h4>
 <p>
+	Description:<br>
 	<%= @room.desc %>
 </p>
 <br>
@@ -62,13 +63,17 @@
 
 <script>
 
-	window.onload = function() {
-		  loadMap();
-	};
+	// Atrasa a inicialização do mapa em 1s para que atribuição de @room tenha sido feita.
+	$(document).ready(function () {
+		 setTimeout(function() { 
+		 	loadMap(); 
+		 }, 1000); 
+	});
 
 
 	function loadMap() {
 		var mapProp = {
+			scrollwheel: false,
 		    center: new google.maps.LatLng(<%= @room.latitude %>,<%= @room.longitude %>),
 		    zoom:15
 		};

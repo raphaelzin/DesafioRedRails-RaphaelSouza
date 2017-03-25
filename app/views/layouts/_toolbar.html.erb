@@ -38,7 +38,7 @@
 <% else %>
 <div class="pull-right" style="display:inline-block">
 	<%= link_to "Home",  root_path, class: "btn-sm btn-primary"  %>
-	<%= link_to current_user.name, users_home_path, class: "btn-sm btn-primary" %>
+	<%= link_to current_user.name, users_home_path(id: current_user.id), class: "btn-sm btn-primary" %>
 	<%= link_to t(:sign_out), sign_out_path, method: :delete, class: "btn-sm btn-danger" %>
 </div>
 <% end %>

@@ -1,10 +1,14 @@
 class RoomsController < ApplicationController
+  before_action :check_user, only: [:edit, :update, :index, :show, :edit]
+
   def show
+    @user = User.new
     @room = Room.find(params[:id])
     @comment = Comment.new
   end
 
   def edit
+    check_ownership
     @room = Room.find(params[:id])
     @pic = Picture.new
   end
@@ -53,6 +57,9 @@ class RoomsController < ApplicationController
       # Atribuição paralela para o caso de datas trocadas 
       if @start_date > @end_date
         @start_date,@end_date = @end_date,@start_date
+      elsif @start_date.beginning_of_day == @end_date.beginning_of_day
+        flash[:error] = "The dates must be distinct"
+        redirect_to root_path
       end
 
       session[:in] = @start_date
@@ -60,13 +67,21 @@ class RoomsController < ApplicationController
 
       session[:nights] = (((@end_date - @start_date).to_i)/1.day).abs
     end
-
-    params[:check_in] = nil
-    params[:check_out] = nil
   end
 
   def home
     @user = User.new
+  end
+
+  def check_user
+    if not current_user.present?
+      flash[:error] = "Login first"
+      redirect_to root_path  
+    elsif Room.find(params[:id]).user != current_user
+      flash[:error] = "This room is not yours"
+      redirect_to root_path  
+    end
+
   end
 
   def room_params

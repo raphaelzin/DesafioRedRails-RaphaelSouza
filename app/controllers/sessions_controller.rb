@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
 		if user && user.authenticate(session_params[:password])
 		  session[:user_id] = user.id
-		  redirect_to rooms_home_path, notice: 'Hi, friend!'
+		  redirect_to root_path, notice: 'Hi, friend!'
 		else
 		  redirect_to root_path, notice: "No way!"
 		end
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
   def destroy
 	reset_session
-	redirect_to rooms_home_path, notice: 'Bye!'
+	redirect_to root_path, notice: 'Bye!'
   end
 
   private

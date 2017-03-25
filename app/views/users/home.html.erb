@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<%= image_tag current_user.picture.url, class: "avatar" %>
 			<h3>welcome <%= current_user.name %></h3>
-			<%= link_to "Edit account", users_edit_path %><br>
+			<%= link_to "Edit account", users_edit_path(id: current_user.id) %><br>
 			<%= link_to "Offer room", rooms_new_path %>
 		</div>
 		<div class="col-md-6">
@@ -11,6 +11,8 @@
 			<br>
 			<h2>Requests:</h2>
 			<%= render 'users/requests' %>
+			<h2>Rent History</h2>
+			<%= render 'users/rent_history' %>
 		</div>
 	</div>
 </div>

@@ -1,14 +1,33 @@
 
-<!-- Não deve mostrar os próprios anûncios -->
-<% Room.where.not(user_id: current_user.id).each do |r|  %>
+<%= link_to "Lower to Higher Price", sort: "price ASC" %> / 
+<%= link_to "Higher to Lower Price", :sort =>"price DESC"%> <br>
+<%= link_to "More Beds", :sort =>"beds DESC"%> / 
+<%= link_to "Less Beds", :sort =>"beds ASC"%> <br>
+<%= link_to "More Guests", :sort =>"guests DESC"%> / 
+<%= link_to "Less Guests", :sort =>"guests ASC"%>
+<br>
+<!-- Não deve mostrar os próprios anûncios, mas caso queira -->
+<% # Room.all.each do |r| %>
+<%=  %>
+<% Room.order("#{params[:sort]}").where.not(user_id: (current_user.present? ? current_user.id : nil)).each do |r|  %>
 
 	<%= link_to room_path(r)  do %>
 	
 	<div class="offerCard">
+		<% if r.pictures.count > 0 %>
+			<%= image_tag r.pictures.first.url %>
+		<% else %>
+			<%= image_tag "http://www.underconsideration.com/brandnew/archives/airbnb_logo_detail.png" %>
+		<% end %>
 
-		<strong><%= r.title %></strong><br>
+		<strong>
+			<%= r.title %><br>
+			Beds: <%= r.beds %><br>
+			Guests: <%= r.guests %><br>
+		</strong>
 
-		<strong><%= number_to_currency(r.price * (((@end_date - @start_date).to_i)/1.day)) %></strong> for <%= pluralize(((@end_date - @start_date).to_i)/1.day, "night") %> 
+		<strong><%= number_to_currency(r.price * session[:nights]) %></strong> 
+			for <%= pluralize(session[:nights], "night") %> 
 	</div>
 
 	<% end %>

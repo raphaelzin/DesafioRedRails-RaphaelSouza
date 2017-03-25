@@ -27,3 +27,34 @@ users = User.order(:created_at).take(12)
 						available: true
 				)}
 end
+
+
+users = User.order(:created_at).take(8)
+rooms = Room.order(:created_at).take(20)
+rooms.each do |room|
+	users.each {|user| room.comments.create!(
+							# Qualquer frase bizarra que aparecer é culpa do Faker
+							text: Faker::Friends.quote,
+							user_id: user.id
+						)}
+end
+
+
+users = User.order(created_at: :desc ).take(4)
+rooms.each do |room|
+	users.each {|user| room.requests.create!(
+							out: Faker::Date.forward(10),
+							in: Faker::Date.backward(10),
+							user_id: user.id,
+							accepted: false
+						)}
+end
+
+rooms.each do |room|
+	users.each {|user| user.rent_histories.create!(
+							out: Faker::Date.forward(10),
+							in: Faker::Date.backward(10),
+							room_id: room.id,
+						)}
+end
+

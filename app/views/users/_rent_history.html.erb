@@ -1,0 +1,8 @@
+
+<% current_user.rent_histories.each do |rent| %>
+	<div class="request">
+		Room: <%= link_to rent.room.title, room_path(rent.room) %><br>
+		Check-in: <%= rent.in.strftime("%B, %-d - %Y ") %><br>
+		Check-out: <%= rent.out.strftime("%B, %-d - %Y ") %><br>
+	</div>
+<% end %>

@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
 
+  before_action :check_identity, only: [:edit, :update, :home]
+
   def home
-    @user = current_user
+    if current_user.present?
+      @user = current_user
+    else
+      redirect_to root_path
+    end
   end
 
   def history
@@ -63,7 +69,13 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Welcome!"
       session[:user_id] = @user.id
-      redirect_to rooms_home_path
+      redirect_to root_path
+    end
+  end
+
+  def check_identity
+    if not current_user.present? or current_user != User.find(params[:id])
+      redirect_to root_path
     end
   end
 
